@@ -25,6 +25,11 @@
     # Basic cli tools
     ripgrep
     tree
+    unzip
+
+    # Actual dev stuff
+    gcc
+    clang-tools
 
     # Secret management. Originally installed for git
     libsecret
@@ -72,7 +77,8 @@
   # Custom modules
   modules.firefox.enable = true;
   modules.ghostty.enable = true;
-  # modules.neovim.enable = true;
+  modules.nvim.enable = true;
+  modules.nvim.dotfileRepo = "https://github.com/ParkerHitch/nvim-config.git";
 
 
   # This value determines the Home Manager release that your configuration is
