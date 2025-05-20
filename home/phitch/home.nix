@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-
+{ config, pkgs, lib, ... }:
 {
 
   imports = [
@@ -21,11 +20,14 @@
   home.packages = with pkgs; [
     # Core apps
     brightnessctl
+    wl-clipboard
+    overskride
 
     # Basic cli tools
     ripgrep
     tree
     unzip
+    fd
 
     # Actual dev stuff
     gcc
@@ -73,6 +75,15 @@
 
   # Services
   services.gnome-keyring.enable = true;
+  # Persistent clipboard
+  systemd.user.services.wl-clip-persist = {
+    Unit = {
+      Description = "Persistent clipboard for Wayland";
+      PartOf = [ "graphical-session.target" ];
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+    Service.ExecStart = "${lib.getExe pkgs.wl-clip-persist} --clipboard both";
+  };
 
   # Custom modules
   modules.firefox.enable = true;
