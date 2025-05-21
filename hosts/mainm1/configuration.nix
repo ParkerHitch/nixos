@@ -92,6 +92,11 @@ in
   # Font dir idk
   fonts.fontDir.enable = true;
 
+  # Session variables
+  environment.sessionVariables = {
+    GSK_RENDERER = "ngl";
+  };
+
   # Make sure our nixpkgs align with that of the flake
   nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 

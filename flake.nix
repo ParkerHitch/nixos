@@ -3,13 +3,11 @@
 
   inputs = {
 
-    # TODO: PIN IT
     nixpkgs.url = "github:nixos/nixpkgs";
 
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
     apple-silicon-support = {
-      # TODO: PIN IT
       url = "github:tpwrules/nixos-apple-silicon";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
@@ -17,7 +15,6 @@
     # Don't touch their nixpkgs :)
     hyprland.url = "github:hyprwm/Hyprland";
 
-    # TODO: PIN
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -27,6 +24,8 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons"; 
       inputs.nixpkgs.follows = "nixpkgs"; 
     };
+
+    nix-colors.url = "github:misterio77/nix-colors";
   };
 
   outputs = { nixpkgs, nixpkgs-unstable, apple-silicon-support, home-manager, ... }@inputs: 
@@ -50,7 +49,7 @@
     homeConfigurations = {
       "phitch@mainm1" = home-manager.lib.homeManagerConfiguration {
          pkgs = nixpkgs.legacyPackages.${system};
-         extraSpecialArgs = { inherit inputs; };
+         extraSpecialArgs = { inherit inputs; inherit(inputs) nix-colors; };
          modules = [
            ./home/phitch/home.nix
          ];

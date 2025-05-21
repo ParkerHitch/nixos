@@ -1,7 +1,8 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, nix-colors, ... }:
 {
 
   imports = [
+    nix-colors.homeManagerModules.default
     ./cli-programs
     ./gui-programs
     ./desktop-env
@@ -14,6 +15,9 @@
     NH_FLAKE =
       "${config.home.homeDirectory}/.config/nixos"; # config directory for nh
   };
+
+  # Nix-Colors stuff
+  colorScheme = nix-colors.colorSchemes.phd;
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -88,6 +92,7 @@
   # Custom modules
   modules.firefox.enable = true;
   modules.ghostty.enable = true;
+  modules.ghostty.useBase16 = true;
   modules.nvim.enable = true;
   modules.nvim.dotfileRepo = "https://github.com/ParkerHitch/nvim-config.git";
 
