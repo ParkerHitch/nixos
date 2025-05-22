@@ -31,15 +31,24 @@
       '';
 
     # Make a colorscheme based on nix-colors
-    home.file.nvim-base16 = let palette = config.colorScheme.palette; in {
-      target = "${config.xdg.dataHome}/nvim/site/colors/nix-base16.lua";
-      # TODO: Can we make this reload nvim?
+    home.file.nvim-base16 = let 
+      palette = config.colorScheme.palette; 
+      filename = "nix-base16";
+    in rec {
+      target = "${config.xdg.dataHome}/nvim/site/colors/${filename}.lua";
+      # FIXME: We have hard coded a uid here. This is bad.
+      # If you are reading this change this.
       onChange = 
-      # need to delete this otherwise changing our colorscheme does nothing
         ''
         cd ${config.xdg.cacheHome}
         if [ -d nvim/luac ]; then
-          run rm -rf nvim/luac
+          cd nvim/luac
+          run ls | grep ${filename} | xargs rm
+          cd /run/user/1000
+          run ls | \
+              grep "^nvim" | \
+              xargs -I {} \
+                nvim --server {} --remote-send "<C-\><C-N>:luafile ${target}<CR>"
         fi
         '';
       text = 
