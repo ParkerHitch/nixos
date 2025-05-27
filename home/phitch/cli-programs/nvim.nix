@@ -34,21 +34,23 @@
     home.file.nvim-base16 = let 
       palette = config.colorScheme.palette; 
       filename = "nix-base16";
-    in rec {
-      target = "${config.xdg.dataHome}/nvim/site/colors/${filename}.lua";
       # FIXME: We have hard coded a uid here. This is bad.
       # If you are reading this change this.
+      uid = "1000";
+      colors_name = "nix-base16";
+    in rec {
+      target = "${config.xdg.dataHome}/nvim/site/colors/${filename}.lua";
       onChange = 
         ''
         cd ${config.xdg.cacheHome}
         if [ -d nvim/luac ]; then
           cd nvim/luac
-          run ls | grep ${filename} | xargs rm
-          cd /run/user/1000
+          run ls | (grep ${filename}||true) | xargs rm
+          cd /run/user/${uid}
           run ls | \
-              grep "^nvim" | \
+              (grep "^nvim"||true) | \
               xargs -I {} \
-                nvim --server {} --remote-send "<C-\><C-N>:luafile ${target}<CR>"
+                ${pkgs.neovim}/bin/nvim --server /run/user/${uid}/{} --remote-send "<C-\><C-N>:luafile ${target}<CR>:colorscheme ${colors_name}<CR>"
         fi
         '';
       text = 
@@ -73,7 +75,7 @@
             base0F = '#${palette.base0F}',
           }
         })
-        vim.g.colors_name = "nix-base16"
+        vim.g.colors_name = "${colors_name}"
         '';
     };
 

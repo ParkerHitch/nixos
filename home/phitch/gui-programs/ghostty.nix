@@ -1,6 +1,7 @@
-{ config, pkgs, lib, nix-colors, ... }:
+{ config, pkgs, lib, nix-colors, specialArgs, ... }:
 let
   palette = config.colorScheme.palette;
+  hyprpkgs = specialArgs.inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
 in
 {
   options = {
@@ -10,6 +11,12 @@ in
     };
   };
   config = lib.mkIf config.modules.ghostty.enable {
+
+    home.activation.refreshGhostty = 
+      lib.hm.dag.entryAfter [ "linkGeneration" ]
+      ''
+      run ${hyprpkgs.hyprland}/bin/hyprctl clients -j | ${pkgs.jq}/bin/jq -c '.[] | select(.class | contains("ghostty")) | .pid' | xargs -I{} ${hyprpkgs.hyprland}/bin/hyprctl dispatch sendshortcut CTRL SHIFT, COMMA, pid:{}
+      '';
 
     programs.ghostty = {
       enable = true;

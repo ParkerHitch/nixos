@@ -32,6 +32,7 @@
     tree
     unzip
     fd
+    jq
 
     # Actual dev stuff
     gcc

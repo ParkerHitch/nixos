@@ -7,31 +7,31 @@
     settings = {
       logo = {
         source = "asahi";
-	padding = {
+        padding = {
           left = 1;
-	  top = 1;
-	  right = 2;
+          top = 1;
+          right = 2;
         };
       };
       modules = [
         "title"
         "separator"
-	"os"
-	"host"
-	"kernel"
-	"uptime"
-	"packages"
-	"shell"
-	"wm"
-	"terminal"
-	"cpu"
-	"memory"
-	"swap"
-	"disk"
-	"battery"
-	"break"
-	"weather"
-	"colors"
+        "os"
+        "host"
+        "kernel"
+        "uptime"
+        "packages"
+        "shell"
+        "wm"
+        "terminal"
+        "cpu"
+        "memory"
+        "swap"
+        "disk"
+        "battery"
+        "break"
+        "weather"
+        "colors"
       ];
     };
   };
@@ -40,16 +40,17 @@
     enable = true;
 
     interactiveShellInit = 
-    ''
-      ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
-    '';
+      ''
+        ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
+      '';
 
     functions = {
       fish_greeting = "fastfetch";
     };
 
-    shellAliases = lib.mkIf config.modules.nvim.enable {
-      vim = "nvim";
+    shellAliases = {
+      gs = "git status";
+      vim = lib.mkIf config.modules.nvim.enable "nvim";
     };
   };
 }
