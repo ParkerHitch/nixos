@@ -17,7 +17,7 @@
   };
 
   # Nix-Colors stuff
-  colorScheme = nix-colors.colorSchemes.material;
+  colorScheme = nix-colors.colorSchemes.everforest;
 
   # The home.packages option allows you to install Nix packages into your
   # environment.

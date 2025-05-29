@@ -1,0 +1,125 @@
+/* Reset all styles */
+* {
+    border: none;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/* The whole bar */
+window#waybar {
+    background: transparent;
+    font-family: "Noto Sans", "Font Awesome 6 Free";
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 0;
+}
+
+label.module {
+    border-radius: 8px;
+    background: @bg;
+    color: @fg;
+
+    margin-left: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 4px;
+
+    margin-top: 4px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 3px;
+}
+
+box.module {
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+#custom-apple {
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+/* Each warning */
+#network.disconnected,
+#memory.warning,
+#cpu.warning,
+#temperature.warning,
+#battery.warning {
+    background: @warnbg;
+    color: @warnfg;
+}
+
+
+/* Workspaces stuff */
+
+#workspaces button {
+    background: @bg;
+    color: @fg;
+    font-weight: bold;
+
+    margin-left: 0px;
+    margin-right: 0px;
+    border-radius: 0px;
+
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-top: 4px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 3px;
+}
+
+#workspaces button:hover {
+    background: @hoverbg;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+#workspaces button:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+#workspaces button:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+#workspaces button.active {
+    color: @activefg;
+}
+
+#workspaces button.urgent {
+    color: @warnfg;
+}
+
+window {
+    margin-right: 40px;
+    margin-left: 40px;
+}
+
+#battery {
+    border-top-right-radius: 16px;
+    margin-right: 5px;
+}
+
+
+
+#custom-apple {
+    font-size: 17px;
+    border-top-left-radius: 16px;
+    margin-left: 5px;
+    padding-left: 14px;
+    padding-right: 14px;
+}
+
+#custom-notch {
+    margin-left: 100px;
+    margin-right: 100px;
+    padding-left: 14px;
+    padding-right: 14px;
+}
